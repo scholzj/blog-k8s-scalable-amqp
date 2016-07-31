@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: broker-gui-deployment
+  labels:
+    app: amqp
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: broker-gui
+      labels:
+        name: broker-gui
+    spec:
+      containers:
+        - image: scholzj/qpid-cpp-gui:latest
+          name: broker-gui
+          imagePullPolicy: Always
+          env:
+            - name:  QMF_GUI_ADMIN_USERNAME
+              value: admin
+            - name:  QMF_GUI_ADMIN_PASSWORD
+              value: "123456"
+          ports:
+            - containerPort: 8080
+              name: http

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: broker-gui
+  name: broker-gui
+spec:
+  ports:
+    - port: 8080
+  selector:
+    name: broker-gui
+  type: LoadBalancer

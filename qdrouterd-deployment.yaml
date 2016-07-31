@@ -1,0 +1,212 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: qdrouterd
+  labels:
+    app: qdrouterd
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: qdrouterd
+      labels:
+        name: qdrouterd
+    spec:
+      containers:
+        - image: scholzj/qpid-dispatch:0.6.0
+          name: qdrouterd
+          imagePullPolicy: Always
+          env:
+            - name:  QDROUTERD_ADMIN_USERNAME
+              value: admin
+            - name:  QDROUTERD_ADMIN_PASSWORD
+              value: "123456"
+            - name: QDROUTERD_SSL_SERVER_PUBLIC_KEY
+              value: |
+                    -----BEGIN CERTIFICATE-----
+                    MIIDAzCCAeugAwIBAgIEJsy2ejANBgkqhkiG9w0BAQsFADAUMRIwEAYDVQQDEwlsb2NhbGhvc3Qw
+                    HhcNMTYwMjE2MjAwNTM5WhcNMTcwMjEwMjAwNTM5WjAUMRIwEAYDVQQDEwlsb2NhbGhvc3QwggEi
+                    MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCfPnC1JIY0wQkgDAw1XZBdJzNmozk1w5UfBKNT
+                    AHqdcmCQNi1Jo8+aHhJhrkxm/JU+BmZZ2qSJbrrpDtzfSeeumHA7tpkeE3NG9HJ3tfJ1I00ylBN7
+                    7mFzmJ/TqHaJ51+XmA7QOBNMOTCJzb9Q4+pR2F9AziXuzpaEAakX7wXlVeJyA0h+qOlwfEFaNiEb
+                    2ekEw6ach4p9SLBaAlHP9W5vRQIVF68LEciw+oEd9hGQCthqLlwx0GPswR6OiJEEj5Kilu0DbkKk
+                    lJnChEFqrU5mksOodnQKKcmVi94zd/glIpu7JThV2dzKrUPfXSG5FGgCQ5WuIhXjXTfy1fac0iQD
+                    AgMBAAGjXTBbMDoGA1UdEQQzMDGCBWFscGhhgglsb2NhbGhvc3SCCWFtcXAtaG9zdIIHc2Nob2ph
+                    a4IJcXBpZC1ob3N0MB0GA1UdDgQWBBQjdPwIvgbWtdmjSjVTvSoNjh4VYzANBgkqhkiG9w0BAQsF
+                    AAOCAQEAS2fqIwwZd/P0pQZbunynxSPwpoKb1fth6MXi8InOle4dV27rUVj6as+AAs8KWuvazR9i
+                    8aCyu6qwyhXcQvXe2Yx+IVQYkPGP8T9Lk+rQoXoise0eAtaxfgoAbARmSpQlsN0eVXflbvxjFj6V
+                    AeNh0gouBKyzamzz84Ylc3L1mvAAKM8pLY7ngjlomxlHTt7fLZXu9L5/yiRfYuacS4Hh16sOTR25
+                    CckHFMJZ4jbRVkNxlUrQXV9VthizBCxejjY0cM8SszSnZTWg02w9QS2jti1TGw9O90pOOH3MqdmY
+                    dnjTvoFRIURFxIfszNnPe2E/QeJvvnMHn0o0XNc/utpKGg==
+                    -----END CERTIFICATE-----
+            - name: QDROUTERD_SSL_SERVER_PRIVATE_KEY
+              value: |
+                    Bag Attributes
+                        friendlyName: localhost
+                        localKeyID: 54 69 6D 65 20 31 34 35 35 36 35 33 32 31 38 34 31 38
+                    Key Attributes: <No Attributes>
+                    -----BEGIN PRIVATE KEY-----
+                    MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCfPnC1JIY0wQkg
+                    DAw1XZBdJzNmozk1w5UfBKNTAHqdcmCQNi1Jo8+aHhJhrkxm/JU+BmZZ2qSJbrrp
+                    DtzfSeeumHA7tpkeE3NG9HJ3tfJ1I00ylBN77mFzmJ/TqHaJ51+XmA7QOBNMOTCJ
+                    zb9Q4+pR2F9AziXuzpaEAakX7wXlVeJyA0h+qOlwfEFaNiEb2ekEw6ach4p9SLBa
+                    AlHP9W5vRQIVF68LEciw+oEd9hGQCthqLlwx0GPswR6OiJEEj5Kilu0DbkKklJnC
+                    hEFqrU5mksOodnQKKcmVi94zd/glIpu7JThV2dzKrUPfXSG5FGgCQ5WuIhXjXTfy
+                    1fac0iQDAgMBAAECggEAEbOKKcielnyivAo6zS/SXVh/MTiRonVUPTdxxEc4Wgod
+                    y8oJ7Lal3BbdqjgKzCPlnxhtBi30vkYtxrxdNwDrHRBa4XhhuuMknE2N79qs0fKT
+                    oTyukcck1AmyMn/2dUvf52UCuIiTNJTi3V6elqpPILvxkq2Xr90NBC1/E2cBe8WM
+                    K42PImVBCjd3TiGq0sLcIBJrbjxPoZgHgjjtFC8ulylluayoVWwEC7GeuaEhNrLu
+                    TBI8knhOuHq0EpMByzTyl9Ona7ga4EMjqK2I4XqqhrkL/uKTa97bpoWLwBUS4NYJ
+                    mK0+gTGoY7no9QmwrsJ1ru2pw9PWMeSSl5btdZoMcQKBgQDdVP/IwQWGmnWRgfp9
+                    /Auc/Xs/Zz0BSMTm6T7Q2r85G91STTooL9dCKTtlGW3lKGvBXPsRijwD8SeKuqJr
+                    //qB6bJlNtyD6JgBXsKZScCbPly8BLfAjqC7l5u4Kb20/q9PP6uNh4q+I/fjVnLi
+                    KF+kpqOz0WFMZ++RjEcUG63XuQKBgQC4L9LOEixQZ+Ccdg0B0Dkp8cHv6uhJiJVR
+                    iBTzBUwJ4Tu6xvkupoFaTF7YJvmT+G5imp93nCDBXXysIqWCBx8a4sWQFEXj+Hab
+                    RxMp3hpY7+4/Tg1D0yqdAFIcfieoHNMlu2/bSN/GA0sxabj0qiSZs9nFEJl/uzeE
+                    Kvn070o/mwKBgH06El6rl0zJJ6vkNq4BZTC12n3NE58eZQmg/oF8wqS1N0vRlg4W
+                    w1wTqB9Te/IkJJOK4CLUa5BvaUf8wNkKQ9otN1o86BdaCmb8Dm5cZDVx21Yl9TFl
+                    gVuiM+DG/Sbi0p2sEIxLHBzojOB7kRSUc0jdX9HlrX9lbw6Sp8SgxINBAoGAWzk8
+                    dFnl3tEEGxoQ6SQDG/YkMrqq37ipE9+NWKv39DC8z4463lMTX/DRTMdI93Ok4Gtq
+                    regDBSJTXEIwrQzv5/YHGYwg7X8i51c1c5gQfpoe6vWydjRBN89v27LT21yja13B
+                    Ud9vDXiWJlwRggQ+6m18XzEQhYXpQimy8RAPOx8CgYAtUEaiiL7/jXEJYhzYRP3/
+                    8B9xxXzZAF7bb+KvTM5ZddEtZbK/KxoDE+bR1DgNHfOsDZao5JYTggw0EVLVjmEy
+                    ebvLB3nia4DpYAVLnl3v44P5WBCMjk48z8w+vIZNuNFHGs+TwtGsvSTuVTpCOBKc
+                    a4luqinbH3wCqdJAQ5CyTw==
+                    -----END PRIVATE KEY-----
+            - name: QDROUTERD_CONFIG_INSET
+              value: |
+                    connector {
+                      name: shard_0
+                      role: route-container
+                      host: broker-0.qpidd
+                      port: 5672
+                      saslUsername: admin
+                      saslPassword: 123456
+                      saslMechanisms: PLAIN
+                      allowRedirect: no
+                      idleTimeoutSeconds: 120
+                      linkCapacity: 1000
+                    }
+
+                    connector {
+                      name: shard_1
+                      role: route-container
+                      host: broker-1.qpidd
+                      port: 5672
+                      saslUsername: admin
+                      saslPassword: 123456
+                      saslMechanisms: PLAIN
+                      allowRedirect: no
+                      idleTimeoutSeconds: 120
+                      linkCapacity: 1000
+                    }
+
+                    connector {
+                      name: shard_2
+                      role: route-container
+                      host: broker-2.qpidd
+                      port: 5672
+                      saslUsername: admin
+                      saslPassword: 123456
+                      saslMechanisms: PLAIN
+                      allowRedirect: no
+                      idleTimeoutSeconds: 120
+                      linkCapacity: 1000
+                    }
+
+                    address {
+                        prefix: shardedQueue
+                        waypoint: yes
+                    }
+
+                    autoLink {
+                        addr: shardedQueue
+                        dir: in
+                        connection: shard_0
+                    }
+
+                    autoLink {
+                        addr: shardedQueue
+                        dir: out
+                        connection: shard_0
+                    }
+
+                    autoLink {
+                        addr: shardedQueue
+                        dir: in
+                        connection: shard_1
+                    }
+
+                    autoLink {
+                        addr: shardedQueue
+                        dir: out
+                        connection: shard_1
+                    }
+
+                    autoLink {
+                        addr: shardedQueue
+                        dir: in
+                        connection: shard_2
+                    }
+
+                    autoLink {
+                        addr: shardedQueue
+                        dir: out
+                        connection: shard_2
+                    }
+
+                    address {
+                        prefix: singleNodeQueue0
+                        waypoint: yes
+                    }
+
+                    autoLink {
+                        addr: singleNodeQueue0
+                        dir: in
+                        connection: shard_0
+                    }
+
+                    autoLink {
+                        addr: singleNodeQueue0
+                        dir: out
+                        connection: shard_0
+                    }
+
+                    address {
+                        prefix: singleNodeQueue1
+                        waypoint: yes
+                    }
+
+                    autoLink {
+                        addr: singleNodeQueue1
+                        dir: in
+                        connection: shard_1
+                    }
+
+                    autoLink {
+                        addr: singleNodeQueue1
+                        dir: out
+                        connection: shard_1
+                    }
+
+                    address {
+                        prefix: singleNodeQueue2
+                        waypoint: yes
+                    }
+
+                    autoLink {
+                        addr: singleNodeQueue2
+                        dir: in
+                        connection: shard_2
+                    }
+
+                    autoLink {
+                        addr: singleNodeQueue2
+                        dir: out
+                        connection: shard_2
+                    }
+          ports:
+            - containerPort: 5672
+              name: amqp
+            - containerPort: 5671
+              name: amqps

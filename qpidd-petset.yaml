@@ -1,0 +1,41 @@
+apiVersion: apps/v1alpha1
+kind: PetSet
+metadata:
+  name: broker
+spec:
+  replicas: 3
+  serviceName: qpidd
+  template:
+    metadata:
+      labels:
+        app: qpidd
+      annotations:
+        pod.alpha.kubernetes.io/initialized: "true"
+    spec:
+      securityContext:
+        fsGroup: 996
+      containers:
+        - image: scholzj/qpid-cpp:1.35.0-alpha
+          name: qpidd
+          imagePullPolicy: Always
+          env:
+            - name:  QPIDD_ADMIN_USERNAME
+              value: admin
+            - name:  QPIDD_ADMIN_PASSWORD
+              value: "123456"
+          ports:
+            - containerPort: 5672
+              name: amqp
+            - containerPort: 5671
+              name: amqps
+          volumeMounts:
+            - name: qpidd-storage
+              mountPath: /var/lib/qpidd
+  volumeClaimTemplates:
+  - metadata:
+      name: qpidd-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 10Gi
